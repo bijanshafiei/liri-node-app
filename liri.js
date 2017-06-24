@@ -58,19 +58,27 @@ var  lookup = {
 				console.log("Plot: " + result.Plot);
 				console.log("Actors: " + result.Actors);
 				console.log("Rotten Tomatoes: " + result.Ratings[1].Value);
+				console.log("\n--------------------\n");
 
 			}
 		});
 		
 	},
 
-	doWhatItSays: function (){
-		
+	doWhatItSays: function (err, data){
+		fs.readFile("random.txt", "utf8", function(error, data){
+			if(err){
+                console.log(err);
+            }
+            var output = [];
+            output = data.split(",");
+            console.log(data)
+		});
 	},
 	
 }
 //Processing user input
-switch (process.argv[2]) {
+switch (input) {
 		case "my-tweets":
 			lookup.mytweets();
 			break;
@@ -80,10 +88,10 @@ switch (process.argv[2]) {
 		case "movie-this":
 			lookup.movieThis();
 			break;
-		// case "do-what-it-says":
-		// 	lookup.doWhatItSays();
-		// 	break;	
-		// default:
-		// console.log("Choose a valid option");
-		// 	break;
+		case "do-what-it-says":
+			lookup.doWhatItSays();
+			break;	
+		default:
+		console.log("Please choose a valid option");
+			break;
 	}
