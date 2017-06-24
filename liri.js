@@ -45,6 +45,22 @@ var  lookup = {
 	},
 
 	movieThis: function (){
+		var queryUrl = "http://www.omdbapi.com/?apikey=40e9cece&t=" + searchTerm;
+		request(queryUrl, function(error, response, body){
+			if (!error && response.statusCode === 200) {
+				var result = JSON.parse(body);
+				console.log("\n--------------------\n");
+				console.log("Title: " + result.Title);
+				console.log("Year: " + result.Year);
+				console.log("IMDB Rating: " + result.imdbRating);
+				console.log("Country: " + result.Country);
+				console.log("Language: " + result.Language);
+				console.log("Plot: " + result.Plot);
+				console.log("Actors: " + result.Actors);
+				console.log("Rotten Tomatoes: " + result.Ratings[1].Value);
+
+			}
+		});
 		
 	},
 
@@ -61,10 +77,9 @@ switch (process.argv[2]) {
 		case "spotify-this-song":
 			lookup.spotifyThisSong();
 			break;
-		// case "movie-this":
-		// 	var movieName = process.argv[3];
-		// 	lookup.movieThis(movieName);
-		// 	break;
+		case "movie-this":
+			lookup.movieThis();
+			break;
 		// case "do-what-it-says":
 		// 	lookup.doWhatItSays();
 		// 	break;	
